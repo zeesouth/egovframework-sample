@@ -26,13 +26,14 @@
     	<url-pattern>*.do</url-pattern>
     </filter-mapping>
   
+  
   <servlet>
     	<servlet-name>action</servlet-name>
     	<servlet-class>
     		org.springframework.web.servlet.DispatcherServlet
     	</servlet-class>
     	<init-param>
-    		<param-name>contextConfigLocaiton</param-name>
+    		<param-name>contextConfigLocation</param-name>
     		<param-value>
     			/WEB-INF/config/dispatcher-servlet.xml
     		</param-value>
@@ -43,6 +44,4 @@
     	<servlet-name>action</servlet-name>
     	<url-pattern>*.do</url-pattern>
     </servlet-mapping>
-    
-  
 </web-app>
