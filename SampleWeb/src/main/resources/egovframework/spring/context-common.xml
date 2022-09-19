@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!--
+	<bean id="sampleService" class="egovframework.sample.service.impl.SampleServiceImpl">
+		<property name="sampleDAO" ref="jdbc"></property>
+		<property name="version" value="SampleWeb-1.0.0"></property>
+	</bean>
+	
+	<bean id="jdbc" class="egovframework.sample.service.impl.SampleDAOJDBC"></bean>
+	<bean id="ibatis" class="egovframework.sample.service.impl.SampleDAOIBatis"></bean>
+	-->
+	
+	<context:component-scan base-package="egovframework">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.streotype.Controller"/>
+	</context:component-scan>	
 
 
 </beans>
