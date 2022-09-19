@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- Handler Mapping 등록 -->
+<bean id="HandlerMapping"
+	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	
+	<property name="mappings">
+		<props>
+			<prop key="/selectSampleList.do">selectSampleList</prop>
+		</props>
+	</property>
+</bean>
+
+<!-- Controller 등록 -->
+<bean id="selectSampleList" class="egovframework.sample.web.SelectSampleListController"></bean>
+
+</beans>
