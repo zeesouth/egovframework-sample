@@ -1,21 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
 <!-- Handler Mapping 등록 -->
+<!--
 <bean id="HandlerMapping"
 	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-	
 	<property name="mappings">
 		<props>
 			<prop key="/selectSampleList.do">selectSampleList</prop>
+			<prop key="/selectSample.do">selectSample</prop>
+			<prop key="/insertSample.do">insertSample</prop>
+			<prop key="/updateSample.do">updateSample</prop>
+			<prop key="/deleteSample.do">deleteSample</prop>
 		</props>
 	</property>
 </bean>
 
-<!-- Controller 등록 -->
 <bean id="selectSampleList" class="egovframework.sample.web.SelectSampleListController"></bean>
+<bean id="selectSample" class="egovframework.sample.web.SelectSampleController"></bean>
+<bean id="insertSample" class="egovframework.sample.web.InsertSampleController"></bean>
+<bean id="updateSample" class="egovframework.sample.web.UpdateSampleController"></bean>
+<bean id="deleteSample" class="egovframework.sample.web.DeleteSampleController"></bean>
+-->
+<context:component-scan base-package="egovframework">
+	<context:include-filter type="annotation"
+		expression="org.springframework.stereotype.Controller"/>
+	<context:exclude-filter type="annotation"
+		expression="org.springframework.stereotype.Service"/>
+	<context:exclude-filter type="annotation"
+		expression="org.springframework.stereotype.Repository"/>
+</context:component-scan>
+
+<!-- ViewResolver 등록 -->
+<bean id="viewResolver"
+	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix" value="/WEB-INF/sample/"></property>
+	<property name="suffix" value=".jsp"></property>	
+</bean>
 
 </beans>
 
