@@ -19,9 +19,9 @@ public class SampleDAOJDBC implements SampleDAO {
 	private PreparedStatement stmt;
 	private ResultSet rs;
 	
-	private final String SAMPLE_INSERT = "INSERT INFO SAMPLE(ID, TITLE, REG_USER, CONTENT, REG_DATE"
-			+ ") VALUES ((SELECT NVL((ID), 0) + 1 FROM SAMPLE), ?, ?, ?, SYSDATE)";
-	private final String SAMPLE_UPDATE = "UPDATE SAMPLE SET TITLE=?, REG_USER=?, CONTENT=? WHERE ID=?";
+	private final String SAMPLE_INSERT = "INSERT INTO SAMPLE(ID, TITLE, REG_USER,"
+			+ "CONTENT, REG_DATE) VALUES ((SELECT NVL(MAX(ID), 0) + 1 FROM SAMPLE), ?, ?, ?, SYSDATE)";
+	private final String SAMPLE_UPDATE = "UPDATE SAMPLE SET TITLE=?, REG_USER=?, CONTENT=?, WHERE ID=?";
 	private final String SAMPLE_DELETE = "DELETE FROM SAMPLE WHERE ID=?";
 	private final String SAMPLE_GET = "SELECT ID, TITLE, REG_USER, CONTENT, REG_DATE FROM SAMPLE WHERE ID=?";
 	private final String SAMPLE_LIST = "SELECT ID, TITLE, REG_USER, CONTENT, REG_DATE FROM SAMPLE ORDER BY REG_DATE DESC";
@@ -59,7 +59,7 @@ public class SampleDAOJDBC implements SampleDAO {
 	public void deleteSample(SampleVO vo) throws Exception {
 		System.out.println("JDBC로 deleteSample() 기능 처리");
 		conn = JDBCUtil.getConnection();
-		stmt = conn.prepareStatement(SAMPLE_DELETE);
+		stmt = conn.prepareStatement(SAMPLE_GET);
 		stmt.setString(1, vo.getTitle());
 		stmt.executeUpdate();
 		JDBCUtil.close(stmt, conn);
