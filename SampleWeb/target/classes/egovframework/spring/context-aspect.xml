@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- 횡단관심에 해당하는 Advice 등록 -->
+	<bean id="exceptionTransfer" class="egovframework.rte.fdl.cmmn.aspect.ExceptionTransfer"></bean>
+	
+	<!-- AOP 설정 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* egovframework.sample..*Impl.*(..))" id="exceptionPointcut"/>
+		<!--  <aop:pointcut expression="execution(* egovframework.sample..*Impl.select*(..))" id="selectPointcut"/> -->
+		
+		<aop:aspect ref="exceptionTransfer">
+			<aop:after-throwing pointcut-ref="exceptionPointcut"
+				method="transfer" throwing="exception"/>
+		</aop:aspect>
+		
+		<!-- 
+		<aop:aspect ref="advice">
+			<aop:before pointcut-ref="allPointcut" method="beforeLogic"/>
+			<aop:after-returning pointcut-ref="selectPointcut" method="afterReturningLogic" returning="returnObj"/>
+			<aop:after-throwing pointcut-ref="allPointcut" method="afterThrowingLogic" throwing="exceptObj"/>
+			<aop:after pointcut-ref="allPointcut" method="afterLogic"/>
+			<aop:around pointcut-ref="allPointcut" method="aroundLogic"/>
+		</aop:aspect>
+		-->
+	</aop:config>
+</beans>
