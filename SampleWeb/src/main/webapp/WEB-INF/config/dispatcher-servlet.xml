@@ -18,3 +18,4 @@
 <bean id="selectSampleList" class="egovframework.sample.web.SelectSampleListController"></bean>
 
 </beans>
+
