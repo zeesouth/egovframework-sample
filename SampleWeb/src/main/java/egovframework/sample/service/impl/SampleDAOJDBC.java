@@ -26,6 +26,9 @@ public class SampleDAOJDBC implements SampleDAO {
 	private final String SAMPLE_GET = "SELECT ID, TITLE, REG_USER, CONTENT, REG_DATE FROM SAMPLE WHERE ID=?";
 	private final String SAMPLE_LIST = "SELECT ID, TITLE, REG_USER, CONTENT, REG_DATE FROM SAMPLE ORDER BY REG_DATE DESC";
 	
+	private final String SAMPLE_LIST_TITLE = "SELECT ID, TITLE, REG_USER, CONTENT, REG_DATE FROM SAMPLE WHERE TITLE LIKE '%'||?||'%' ORDER BY REG_DATE DESC";
+	private final String SAMPLE_LIST_CONTENT = "SELECT ID, TITLE, REG_USER, CONTENT, REG_DATE FROM SAMPLE WHERE CONTENT LIKE '%'||?||'%' ORDER BY REG_DATE DESC";
+	
 	public SampleDAOJDBC() throws Exception {
 		System.out.println("===> SampleDAOJDBC 생성");
 	}
@@ -91,7 +94,12 @@ public class SampleDAOJDBC implements SampleDAO {
 		System.out.println("JDBC로 selectSampleList() 기능 처리");
 		List<SampleVO> sampleList = new ArrayList<SampleVO>();
 		conn = JDBCUtil.getConnection();
-		stmt = conn.prepareStatement(SAMPLE_LIST);
+		if(vo.getSearchCondition().equals("TITLE")) {
+			stmt = conn.prepareStatement(SAMPLE_LIST_TITLE);
+		} else if (vo.getSearchCondition().equals("CONTENT")) {
+			stmt = conn.prepareStatement(SAMPLE_LIST_CONTENT);
+		}
+		stmt.setString(1, vo.getSearchKeyword());
 		rs = stmt.executeQuery();
 		while(rs.next()) {
 			SampleVO sample = new SampleVO();

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import egovframework.sample.service.SampleService;
 import egovframework.sample.service.SampleVO;
-import egovframework.sample.service.impl.SampleDAOJDBC;
 
 @Controller
 @SessionAttributes("sample")
@@ -35,14 +34,17 @@ public class SampleController {
 	
 	@RequestMapping(value="/insertSample.do", method=RequestMethod.POST)
 	public String insertSample(SampleVO vo) throws Exception {
-		System.out.println("등록 처리");
 		sampleService.insertSample(vo);
 		return "forward:selectSampleList.do";
-		
 	}
 	
 	@RequestMapping(value="/updateSample.do")
 	public String updateSample(@ModelAttribute("sample") SampleVO vo) throws Exception {
+//		System.out.println("<수정되는 샘플 정보>");
+//		System.out.println("제목 : "+vo.getTitle());
+//		System.out.println("작성자 : "+vo.getRegUser());
+//		System.out.println("내용 : "+vo.getContent());
+//		System.out.println("인덱스 : "+vo.getId());
 		sampleService.updateSample(vo);
 		return "forward:selectSampleList.do";
 	}
@@ -67,8 +69,11 @@ public class SampleController {
 		return conditionMap;
 	}
 	
+	
 	@RequestMapping(value="/selectSampleList.do")
 	public String selectSampleList(SampleVO vo, Model model) throws Exception {
+		if(vo.getSearchCondition() == null) vo.setSearchCondition("TITLE");
+		if(vo.getSearchKeyword() == null) vo.setSearchKeyword("");
 		model.addAttribute("sampleList", sampleService.selectSampleList(vo));
 		return "selectSampleList";
 	}

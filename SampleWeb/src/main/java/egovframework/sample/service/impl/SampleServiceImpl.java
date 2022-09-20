@@ -20,7 +20,7 @@ public class SampleServiceImpl extends EgovAbstractServiceImpl implements Sample
 	private static final Logger LOGGER =
 			LoggerFactory.getLogger(SampleServiceImpl.class);
 	
-	@Resource(name="daoSpring")
+	@Resource(name="daoMyBatis")
 	private SampleDAO sampleDAO;
 	
 	@Resource(name="egovIdGnrService")

@@ -41,10 +41,7 @@
 					<input type="submit" value="UPDATE"/>
 				</td>
 			</tr>
-			
-			
 		</table>
-	
 	</form>
 	<br/>
 	<a href="insertSample.do">INSERT</a>&nbsp;&nbsp;&nbsp;
